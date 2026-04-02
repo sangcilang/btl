@@ -1,0 +1,130 @@
+<h1>Báo cáo</h1>
+<p class="status ok" *ngIf="statusMessage">{{ statusMessage }}</p>
+<p class="status err" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<section class="card" *ngIf="canCreateReport">
+  <h2>{{ resubmitReportId ? 'Nộp lại báo cáo' : 'Tạo báo cáo mới' }}</h2>
+  <form [formGroup]="reportForm" (ngSubmit)="submitReport()">
+    <div class="report-mode-switch" role="tablist" aria-label="Chọn kiểu tạo báo cáo">
+      <button
+        type="button"
+        class="secondary mode-button"
+        [class.mode-button-active]="reportMode === 'standard'"
+        (click)="onReportModeChange('standard')"
+      >
+        Nộp báo cáo
+      </button>
+      <button
+        type="button"
+        class="secondary mode-button"
+        [class.mode-button-active]="reportMode === 'template'"
+        (click)="onReportModeChange('template')"
+      >
+        Tùy chọn báo cáo
+      </button>
+    </div>
+
+    <label for="report-title">Tiêu đề</label>
+    <input id="report-title" type="text" [placeholder]="titlePlaceholder" formControlName="title" />
+
+    <ng-container *ngIf="reportMode === 'standard'; else templateMode">
+      <label for="report-content">Nội dung</label>
+      <textarea id="report-content" rows="4" placeholder="Nhập nội dung báo cáo" formControlName="content"></textarea>
+
+      <label for="report-file">Tệp đính kèm (Excel/Word)</label>
+      <input id="report-file" type="file" accept=".xls,.xlsx,.doc,.docx" (change)="onFileChange($event)" />
+    </ng-container>
+
+    <ng-template #templateMode>
+      <label for="report-template-kind">Mẫu báo cáo</label>
+      <select
+        id="report-template-kind"
+        [ngModel]="templateKind"
+        (ngModelChange)="onTemplateKindChange($event)"
+        [ngModelOptions]="{ standalone: true }"
+      >
+        <option *ngFor="let option of reportTemplateOptions" [value]="option.value" [disabled]="option.disabled">
+          {{ option.label }}
+        </option>
+      </select>
+      <small class="subtext">Các mục làm mờ chỉ để hiển thị thêm lựa chọn mẫu, chưa cần sử dụng thật.</small>
+
+      <app-attendance-report-editor
+        *ngIf="templateKind === 'attendance'; else electricityTemplate"
+        [title]="reportForm.controls['title'].value || ''"
+        [value]="attendanceReport"
+        [disabled]="isSubmitting"
+        (valueChange)="attendanceReport = $event"
+      ></app-attendance-report-editor>
+
+      <ng-template #electricityTemplate>
+        <app-electricity-revenue-report-editor
+          [title]="reportForm.controls['title'].value || ''"
+          [value]="electricityRevenueReport"
+          [disabled]="isSubmitting"
+          (valueChange)="electricityRevenueReport = $event"
+        ></app-electricity-revenue-report-editor>
+      </ng-template>
+    </ng-template>
+
+    <div class="actions">
+      <button type="submit" [disabled]="!hasValidTitle || isSubmitting">{{ submitLabel }}</button>
+      <button type="button" class="secondary" *ngIf="resubmitReportId" (click)="cancelResubmit()">Hủy</button>
+    </div>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Danh sách báo cáo</h2>
+  <p *ngIf="isLoading">Đang tải...</p>
+  <div class="list" *ngIf="!isLoading">
+    <article *ngFor="let report of reports">
+      <div class="report-summary">
+        <div class="report-title-row">
+          <h3>{{ report.title }}</h3>
+          <span class="badge" [class.badge-approved]="report.isApproved">{{
+            report.isApproved ? 'Approved' : report.status
+          }}</span>
+        </div>
+
+        <ng-container *ngIf="structuredReportsById[report.id] as structured; else plainReportContent">
+          <app-attendance-report-preview
+            *ngIf="structured.kind === 'attendance'; else electricityPreview"
+            [title]="report.title"
+            [payload]="toAttendancePayload(structured)"
+          ></app-attendance-report-preview>
+
+          <ng-template #electricityPreview>
+            <app-electricity-revenue-report-preview
+              [title]="report.title"
+              [payload]="toElectricityRevenuePayload(structured)"
+            ></app-electricity-revenue-report-preview>
+          </ng-template>
+        </ng-container>
+
+        <ng-template #plainReportContent>
+          <p>{{ report.content }}</p>
+        </ng-template>
+
+        <small>{{ report.status }} - {{ report.createdAt | date:'dd/MM/yyyy HH:mm' }} - User #{{ report.createdByUserId }}</small>
+        <p class="returned" *ngIf="report.returnedReason">Lý do trả về: {{ report.returnedReason }}</p>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="secondary" (click)="loadHistory(report)">Lịch sử</button>
+        <button type="button" class="secondary" *ngIf="report.hasAttachment" (click)="downloadAttachment(report)">Tệp đính kèm</button>
+        <button type="button" *ngIf="isStaff && report.status === 'Returned'" (click)="startResubmit(report)">Nộp lại</button>
+        <button type="button" class="danger" *ngIf="isAdmin || (isStaff && !report.isApproved)" (click)="deleteReport(report)">Xóa</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="card" *ngIf="selectedHistoryReportId">
+  <h2>Lịch sử #{{ selectedHistoryReportId }}</h2>
+  <ul>
+    <li *ngFor="let row of selectedHistory">
+      {{ row.approvedAt | date:'dd/MM/yyyy HH:mm' }} - {{ row.action }} - {{ row.approverUserName }} ({{ row.approverRole }}) - {{ row.comment }}
+    </li>
+  </ul>
+</section>

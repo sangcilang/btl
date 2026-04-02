@@ -1,0 +1,49 @@
+<div class="report-template-preview">
+  <div class="report-template-preview-header">
+    <div>
+      <p class="subtext" *ngIf="payload.billingPeriod">Kỳ doanh thu: {{ payload.billingPeriod }}</p>
+      <p class="subtext" *ngIf="payload.description">{{ payload.description }}</p>
+    </div>
+
+    <button *ngIf="showExportButton" type="button" class="secondary" (click)="exportExcel()">Xuất Excel</button>
+  </div>
+
+  <p class="subtext" *ngIf="payload.rows.length === 0">{{ emptyMessage }}</p>
+
+  <div class="report-template-table-wrapper" *ngIf="payload.rows.length > 0">
+    <table class="report-template-table">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Mã KH</th>
+          <th>Tên khách hàng</th>
+          <th>Loại KH</th>
+          <th>Chỉ số đầu</th>
+          <th>Chỉ số cuối</th>
+          <th>Sản lượng (kWh)</th>
+          <th>Đơn giá (VND/kWh)</th>
+          <th>Thành tiền (VND)</th>
+          <th>Thuế VAT</th>
+          <th>Tổng tiền</th>
+          <th>Trạng thái</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of payload.rows">
+          <td>{{ row.serialNumber || '-' }}</td>
+          <td>{{ row.customerCode || '-' }}</td>
+          <td>{{ row.customerName || '-' }}</td>
+          <td>{{ row.customerType || '-' }}</td>
+          <td>{{ row.previousReading || '-' }}</td>
+          <td>{{ row.currentReading || '-' }}</td>
+          <td>{{ row.consumptionKwh || '-' }}</td>
+          <td>{{ row.unitPrice || '-' }}</td>
+          <td>{{ row.amount || '-' }}</td>
+          <td>{{ row.vatAmount || '-' }}</td>
+          <td>{{ row.totalAmount || '-' }}</td>
+          <td>{{ row.paymentStatus || '-' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

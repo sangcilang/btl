@@ -1,0 +1,181 @@
+<div class="report-template-editor">
+  <div class="report-template-editor-top">
+    <div class="report-template-editor-fields">
+      <label for="electricity-billing-period">Kỳ doanh thu</label>
+      <input
+        id="electricity-billing-period"
+        type="text"
+        [ngModel]="value.billingPeriod"
+        [ngModelOptions]="{ standalone: true }"
+        [disabled]="disabled"
+        (ngModelChange)="handleRootChange('billingPeriod', $event)"
+        placeholder="Ví dụ: Tháng 03/2026"
+      />
+
+      <label for="electricity-description">Ghi chú</label>
+      <textarea
+        id="electricity-description"
+        rows="3"
+        [ngModel]="value.description"
+        [ngModelOptions]="{ standalone: true }"
+        [disabled]="disabled"
+        (ngModelChange)="handleRootChange('description', $event)"
+        placeholder="Mô tả thêm cho bảng doanh thu điện nếu cần"
+      ></textarea>
+    </div>
+
+    <div class="report-template-toolbar">
+      <button type="button" class="secondary" [disabled]="disabled" (click)="addRow()">Thêm dòng</button>
+      <button type="button" class="secondary" [disabled]="disabled" (click)="exportExcel()">Xuất Excel</button>
+    </div>
+  </div>
+
+  <p class="subtext">
+    Bạn có thể nhập trực tiếp từng khách hàng, sửa chỉ số và trạng thái thu tiền ngay trên bảng rồi xuất ra
+    Excel.
+  </p>
+
+  <div class="report-template-table-wrapper">
+    <table class="report-template-table report-template-table-editor">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Mã KH</th>
+          <th>Tên khách hàng</th>
+          <th>Loại KH</th>
+          <th>Chỉ số đầu</th>
+          <th>Chỉ số cuối</th>
+          <th>Sản lượng (kWh)</th>
+          <th>Đơn giá (VND/kWh)</th>
+          <th>Thành tiền (VND)</th>
+          <th>Thuế VAT</th>
+          <th>Tổng tiền</th>
+          <th>Trạng thái</th>
+          <th class="report-template-action-header">Xóa dòng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of value.rows">
+          <td>
+            <input
+              [ngModel]="row.serialNumber"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'serialNumber', $event)"
+              placeholder="1"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.customerCode"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'customerCode', $event)"
+              placeholder="KH01"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.customerName"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'customerName', $event)"
+              placeholder="Nguyễn Văn A"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.customerType"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'customerType', $event)"
+              placeholder="Sinh hoạt"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.previousReading"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'previousReading', $event)"
+              placeholder="1200"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.currentReading"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'currentReading', $event)"
+              placeholder="1350"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.consumptionKwh"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'consumptionKwh', $event)"
+              placeholder="150"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.unitPrice"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'unitPrice', $event)"
+              placeholder="2000"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.amount"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'amount', $event)"
+              placeholder="300000"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.vatAmount"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'vatAmount', $event)"
+              placeholder="30000"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.totalAmount"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'totalAmount', $event)"
+              placeholder="330000"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.paymentStatus"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'paymentStatus', $event)"
+              placeholder="Đã thu"
+            />
+          </td>
+          <td class="report-template-action-cell">
+            <button
+              type="button"
+              class="danger report-template-row-delete"
+              [disabled]="disabled"
+              (click)="removeRow(row.id)"
+            >
+              Xóa dòng
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

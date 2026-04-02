@@ -1,0 +1,55 @@
+<h1>Phê duyệt báo cáo</h1>
+<p class="ok" *ngIf="message">{{ message }}</p>
+<p class="err" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<section class="card">
+  <h2>Danh sách chờ phê duyệt</h2>
+  <div class="list">
+    <article *ngFor="let report of pendingReports">
+      <div>
+        <h3>{{ report.title }}</h3>
+        <ng-container *ngIf="structuredReportsById[report.id] as structured; else plainReportContent">
+          <app-attendance-report-preview
+            *ngIf="structured.kind === 'attendance'; else electricityPreview"
+            [title]="report.title"
+            [payload]="toAttendancePayload(structured)"
+            [showExportButton]="false"
+          ></app-attendance-report-preview>
+
+          <ng-template #electricityPreview>
+            <app-electricity-revenue-report-preview
+              [title]="report.title"
+              [payload]="toElectricityRevenuePayload(structured)"
+              [showExportButton]="false"
+            ></app-electricity-revenue-report-preview>
+          </ng-template>
+        </ng-container>
+
+        <ng-template #plainReportContent>
+          <p>{{ report.content }}</p>
+        </ng-template>
+        <small>Status: {{ report.status }} | User #{{ report.createdByUserId }}</small>
+      </div>
+      <div class="actions">
+        <input
+          type="text"
+          [value]="comments[report.id] || ''"
+          (input)="comments[report.id] = $any($event.target).value"
+          placeholder="Nhận xét"
+        />
+        <button type="button" (click)="submitDecision(report, false)" [disabled]="isSubmitting">Duyệt</button>
+        <button type="button" class="danger" (click)="submitDecision(report, true)" [disabled]="isSubmitting">Trả về</button>
+        <button type="button" class="secondary" (click)="loadHistory(report.id)">Lịch sử</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="card" *ngIf="selectedHistory.length">
+  <h2>Lịch sử phê duyệt</h2>
+  <ul>
+    <li *ngFor="let row of selectedHistory">
+      {{ row.approvedAt | date:'dd/MM/yyyy HH:mm' }} - {{ row.action }} - {{ row.approverUserName }} - {{ row.comment }}
+    </li>
+  </ul>
+</section>

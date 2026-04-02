@@ -1,0 +1,41 @@
+## Visual Studio
+*.user
+*.suo
+*.docstates
+.vs/
+
+## Build outputs
+bin/
+obj/
+publish/
+*.nupkg
+TestResults/
+*.log
+
+## ASP.NET Core
+appsettings*.json
+wwwroot/
+*.db
+
+## Node & frontends
+**/node_modules/
+**/dist/
+**/build/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.angular/cache/
+frontend-web/node_modules/
+frontend-web/dist/
+frontend-web/build/
+**/node_modules_tmp/
+*.tsbuildinfo
+
+## IDE configs
+.idea/
+.vscode/
+
+## Others
+Thumbs.db
+*.tmp
+*.temp

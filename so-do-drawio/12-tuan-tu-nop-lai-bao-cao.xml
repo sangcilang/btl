@@ -1,0 +1,122 @@
+﻿<mxfile host="app.diagrams.net" modified="2026-03-23T06:39:17Z" agent="Codex" version="24.7.17">
+  <diagram id="c2a208962a7e" name="Tuần tự nộp lại báo cáo">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Tiêu đề -->
+        <mxCell id="2" value="Trình tự nộp lại báo cáo" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=20;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="20" width="600" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Actors -->
+        <mxCell id="3" value="Nhân viên" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="90" width="140" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="4" value="" style="shape=line;strokeColor=#999999;dashed=1;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="189" y="150" width="2" height="760" as="geometry" />
+        </mxCell>
+
+        <mxCell id="5" value="Giao diện (UI)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="90" width="140" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="6" value="" style="shape=line;strokeColor=#999999;dashed=1;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="409" y="150" width="2" height="760" as="geometry" />
+        </mxCell>
+
+        <mxCell id="7" value="API báo cáo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="90" width="140" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="8" value="" style="shape=line;strokeColor=#999999;dashed=1;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="629" y="150" width="2" height="760" as="geometry" />
+        </mxCell>
+
+        <mxCell id="9" value="Dịch vụ báo cáo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="90" width="140" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="10" value="" style="shape=line;strokeColor=#999999;dashed=1;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="849" y="150" width="2" height="760" as="geometry" />
+        </mxCell>
+
+        <mxCell id="11" value="Kho lưu trữ tệp" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="90" width="140" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="12" value="" style="shape=line;strokeColor=#999999;dashed=1;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="1069" y="150" width="2" height="760" as="geometry" />
+        </mxCell>
+
+        <mxCell id="13" value="Cơ sở dữ liệu PostgreSQL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="90" width="140" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="14" value="" style="shape=line;strokeColor=#999999;dashed=1;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="1289" y="150" width="2" height="760" as="geometry" />
+        </mxCell>
+
+        <!-- Flow -->
+        <mxCell id="15" value="Chỉnh sửa báo cáo" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=1.3;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="190" as="sourcePoint" />
+            <mxPoint x="410" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="16" value="POST /api/reports/{id}/resubmit" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=1.3;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="410" y="260" as="sourcePoint" />
+            <mxPoint x="630" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="17" value="Xử lý nộp lại báo cáo (...)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=1.3;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="630" y="330" as="sourcePoint" />
+            <mxPoint x="850" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="18" value="Truy vấn báo cáo và kiểm tra quyền sở hữu" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=1.3;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="850" y="400" as="sourcePoint" />
+            <mxPoint x="1290" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="19" value="Xóa tệp cũ và lưu tệp mới (nếu có)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=1.3;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="850" y="470" as="sourcePoint" />
+            <mxPoint x="1070" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="20" value="Cập nhật báo cáo (trạng thái, cấp duyệt)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=1.3;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="850" y="540" as="sourcePoint" />
+            <mxPoint x="1290" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="21" value="Thêm lịch sử nộp lại (Đã nộp lại)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=1.3;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="850" y="610" as="sourcePoint" />
+            <mxPoint x="1290" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="22" value="200 OK" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=1.3;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="630" y="680" as="sourcePoint" />
+            <mxPoint x="410" y="680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

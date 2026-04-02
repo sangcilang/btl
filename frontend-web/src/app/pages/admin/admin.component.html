@@ -1,0 +1,66 @@
+<h1>Admin</h1>
+<p class="ok" *ngIf="message">{{ message }}</p>
+<p class="err" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<section class="stats" *ngIf="overview">
+  <article><span>Users</span><strong>{{ overview.totalUsers }}</strong></article>
+  <article><span>Reports</span><strong>{{ overview.totalReports }}</strong></article>
+  <article><span>Tasks</span><strong>{{ overview.totalTasks }}</strong></article>
+  <article><span>Pending Reports</span><strong>{{ overview.pendingReports }}</strong></article>
+</section>
+
+<section class="card">
+  <h2>Tạo user mới</h2>
+  <form [formGroup]="createUserForm" (ngSubmit)="createUser()">
+    <div class="grid">
+      <input type="text" formControlName="userName" placeholder="UserName" />
+      <input type="text" formControlName="password" placeholder="Password" />
+      <select formControlName="role">
+        <option value="Staff">Staff</option>
+        <option value="Manager">Manager</option>
+        <option value="Director">Director</option>
+        <option value="Admin">Admin</option>
+      </select>
+    </div>
+    <button type="submit" [disabled]="createUserForm.invalid">Tạo user</button>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Danh sách user</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>UserName</th>
+        <th>Role</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of users">
+        <td>{{ item.id }}</td>
+        <td>{{ item.userName }}</td>
+        <td>
+          <select [ngModel]="item.role" (ngModelChange)="updateRole(item, $event)" [ngModelOptions]="{standalone: true}">
+            <option value="Staff">Staff</option>
+            <option value="Manager">Manager</option>
+            <option value="Director">Director</option>
+            <option value="Admin">Admin</option>
+          </select>
+        </td>
+        <td><button type="button" class="danger" (click)="deleteUser(item)">Xóa</button></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card">
+  <h2>Báo cáo gần đây</h2>
+  <ul>
+    <li *ngFor="let report of reports">
+      {{ report.title }} - {{ report.status }}
+      <button type="button" class="danger" (click)="deleteReport(report)">Xóa</button>
+    </li>
+  </ul>
+</section>

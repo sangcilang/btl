@@ -1,0 +1,159 @@
+<div class="page" *ngIf="user">
+  <header class="topbar">
+    <div>
+      <h1>Report Approval Dashboard</h1>
+      <p>{{ user.userName }} - {{ user.role }}</p>
+    </div>
+    <button type="button" (click)="logout()">Đăng xuất</button>
+  </header>
+
+  <p class="status success" *ngIf="statusMessage">{{ statusMessage }}</p>
+  <p class="status error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <section class="stats" *ngIf="stats">
+    <article>
+      <div>Tổng báo cáo</div>
+      <strong>{{ stats.totalReports }}</strong>
+    </article>
+    <article>
+      <div>Chờ trưởng phòng</div>
+      <strong>{{ stats.pendingManager }}</strong>
+    </article>
+    <article>
+      <div>Chờ giám đốc</div>
+      <strong>{{ stats.pendingDirector }}</strong>
+    </article>
+    <article>
+      <div>Trả về</div>
+      <strong>{{ stats.returnedReports }}</strong>
+    </article>
+    <article>
+      <div>Đã duyệt</div>
+      <strong>{{ stats.approvedReports }}</strong>
+    </article>
+  </section>
+
+  <section class="card" *ngIf="!isAdmin">
+    <h2>{{ resubmitReportId ? 'Nộp lại báo cáo' : 'Tạo báo cáo mới' }}</h2>
+    <form [formGroup]="reportForm" (ngSubmit)="submitReport()">
+      <div class="grid">
+        <input type="text" placeholder="Tiêu đề" formControlName="title" />
+        <textarea rows="4" placeholder="Nội dung báo cáo" formControlName="content"></textarea>
+        <input type="file" (change)="onFileChange($event)" />
+      </div>
+      <div class="actions">
+        <button type="submit" [disabled]="isSubmitting || reportForm.invalid">
+          {{ isSubmitting ? 'Đang xử lý...' : (resubmitReportId ? 'Nộp lại' : 'Gửi báo cáo') }}
+        </button>
+        <button type="button" class="secondary" *ngIf="resubmitReportId" (click)="cancelResubmit()">Hủy nộp lại</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="card" *ngIf="(isManager || isDirector) && pendingReports.length">
+    <h2>Danh sách chờ phê duyệt</h2>
+    <div class="report-list">
+      <article class="report-item" *ngFor="let report of pendingReports">
+        <div>
+          <h3>{{ report.title }}</h3>
+          <ng-container *ngIf="structuredReportsById[report.id] as structured; else plainPendingContent">
+            <app-attendance-report-preview
+              *ngIf="structured.kind === 'attendance'; else pendingElectricityPreview"
+              [title]="report.title"
+              [payload]="toAttendancePayload(structured)"
+              [showExportButton]="false"
+            ></app-attendance-report-preview>
+
+            <ng-template #pendingElectricityPreview>
+              <app-electricity-revenue-report-preview
+                [title]="report.title"
+                [payload]="toElectricityRevenuePayload(structured)"
+                [showExportButton]="false"
+              ></app-electricity-revenue-report-preview>
+            </ng-template>
+          </ng-container>
+
+          <ng-template #plainPendingContent>
+            <p>{{ report.content }}</p>
+          </ng-template>
+          <small>Trạng thái: {{ report.status }} | Người tạo: #{{ report.createdByUserId }}</small>
+        </div>
+        <div class="decision">
+          <input
+            type="text"
+            [value]="actionComments[report.id] || ''"
+            (input)="actionComments[report.id] = $any($event.target).value"
+            placeholder="Nhận xét (tùy chọn)"
+          />
+          <div class="actions">
+            <button type="button" (click)="submitDecision(report, false)">Duyệt</button>
+            <button type="button" class="danger" (click)="submitDecision(report, true)">Trả về</button>
+            <button type="button" class="secondary" (click)="loadHistory(report)">Lịch sử</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>{{ isStaff ? 'Báo cáo của tôi' : 'Tất cả báo cáo' }}</h2>
+    <p *ngIf="isLoading">Đang tải dữ liệu...</p>
+    <div class="report-list" *ngIf="!isLoading">
+      <article class="report-item" *ngFor="let report of reports">
+        <div>
+          <h3>{{ report.title }}</h3>
+          <ng-container *ngIf="structuredReportsById[report.id] as structured; else plainReportContent">
+            <app-attendance-report-preview
+              *ngIf="structured.kind === 'attendance'; else reportElectricityPreview"
+              [title]="report.title"
+              [payload]="toAttendancePayload(structured)"
+              [showExportButton]="false"
+            ></app-attendance-report-preview>
+
+            <ng-template #reportElectricityPreview>
+              <app-electricity-revenue-report-preview
+                [title]="report.title"
+                [payload]="toElectricityRevenuePayload(structured)"
+                [showExportButton]="false"
+              ></app-electricity-revenue-report-preview>
+            </ng-template>
+          </ng-container>
+
+          <ng-template #plainReportContent>
+            <p>{{ report.content }}</p>
+          </ng-template>
+          <small>
+            {{ report.status }} | {{ report.createdAt | date:'dd/MM/yyyy HH:mm' }} | Người tạo #{{ report.createdByUserId }}
+          </small>
+          <p *ngIf="report.returnedReason" class="returned">Lý do trả về: {{ report.returnedReason }}</p>
+        </div>
+        <div class="actions">
+          <button type="button" class="secondary" (click)="loadHistory(report)">Lịch sử</button>
+          <button type="button" class="secondary" *ngIf="report.hasAttachment" (click)="downloadAttachment(report)">Tải tệp</button>
+          <button
+            type="button"
+            *ngIf="isStaff && report.status === 'Returned'"
+            (click)="startResubmit(report)">
+            Nộp lại
+          </button>
+          <button
+            type="button"
+            class="danger"
+            *ngIf="isAdmin || (isStaff && !report.isApproved)"
+            (click)="deleteReport(report)">
+            Xóa
+          </button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="card" *ngIf="selectedHistoryReportId">
+    <h2>Lịch sử duyệt - {{ selectedHistoryReportId }}</h2>
+    <ul class="history-list">
+      <li *ngFor="let row of selectedHistory">
+        {{ row.approvedAt | date:'dd/MM/yyyy HH:mm' }} - {{ row.action }} - {{ row.approverUserName }} ({{ row.approverRole }}) - {{ row.comment }}
+      </li>
+    </ul>
+  </section>
+</div>

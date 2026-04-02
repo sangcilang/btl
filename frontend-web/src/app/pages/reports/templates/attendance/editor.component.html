@@ -1,0 +1,171 @@
+<div class="report-template-editor">
+  <div class="report-template-editor-top">
+    <div class="report-template-editor-fields">
+      <label for="attendance-period">Kỳ chấm công</label>
+      <input
+        id="attendance-period"
+        type="text"
+        [ngModel]="value.reportPeriod"
+        [ngModelOptions]="{ standalone: true }"
+        [disabled]="disabled"
+        (ngModelChange)="handleRootChange('reportPeriod', $event)"
+        placeholder="Ví dụ: Tháng 03/2026"
+      />
+
+      <label for="attendance-description">Ghi chú</label>
+      <textarea
+        id="attendance-description"
+        rows="3"
+        [ngModel]="value.description"
+        [ngModelOptions]="{ standalone: true }"
+        [disabled]="disabled"
+        (ngModelChange)="handleRootChange('description', $event)"
+        placeholder="Mô tả thêm cho bảng chấm công nếu cần"
+      ></textarea>
+    </div>
+
+    <div class="report-template-toolbar">
+      <button type="button" class="secondary" [disabled]="disabled" (click)="addRow()">Thêm dòng</button>
+      <button type="button" class="secondary" [disabled]="disabled" (click)="exportExcel()">Xuất Excel</button>
+    </div>
+  </div>
+
+  <p class="subtext">
+    Bạn có thể nhập trực tiếp từng dòng chấm công, chỉnh sửa ngay trên bảng và file Excel sẽ được tạo từ dữ liệu
+    này khi gửi báo cáo.
+  </p>
+
+  <div class="report-template-table-wrapper">
+    <table class="report-template-table report-template-table-editor">
+      <thead>
+        <tr>
+          <th>Mã NV</th>
+          <th>Tên tài khoản</th>
+          <th>Ngày</th>
+          <th>Giờ vào</th>
+          <th>Giờ ra</th>
+          <th>Công</th>
+          <th>OT</th>
+          <th>Đi muộn</th>
+          <th>Trạng thái</th>
+          <th>Duyệt</th>
+          <th>Người duyệt</th>
+          <th class="report-template-action-header">Xóa dòng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of value.rows">
+          <td>
+            <input
+              [ngModel]="row.employeeCode"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'employeeCode', $event)"
+              placeholder="NV01"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.accountName"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'accountName', $event)"
+              placeholder="nguyenvana"
+            />
+          </td>
+          <td>
+            <input
+              type="date"
+              [ngModel]="row.workDate"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'workDate', $event)"
+            />
+          </td>
+          <td>
+            <input
+              type="time"
+              [ngModel]="row.checkInTime"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'checkInTime', $event)"
+            />
+          </td>
+          <td>
+            <input
+              type="time"
+              [ngModel]="row.checkOutTime"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'checkOutTime', $event)"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.workUnits"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'workUnits', $event)"
+              placeholder="1.0"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.overtimeHours"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'overtimeHours', $event)"
+              placeholder="1h"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.lateDuration"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'lateDuration', $event)"
+              placeholder="10p"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.attendanceStatus"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'attendanceStatus', $event)"
+              placeholder="Đi làm"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.approvalStatus"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'approvalStatus', $event)"
+              placeholder="Chờ"
+            />
+          </td>
+          <td>
+            <input
+              [ngModel]="row.approvedBy"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="disabled"
+              (ngModelChange)="handleRowChange(row.id, 'approvedBy', $event)"
+              placeholder="-"
+            />
+          </td>
+          <td class="report-template-action-cell">
+            <button
+              type="button"
+              class="danger report-template-row-delete"
+              [disabled]="disabled"
+              (click)="removeRow(row.id)"
+            >
+              Xóa dòng
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

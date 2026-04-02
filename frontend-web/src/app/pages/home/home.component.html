@@ -1,0 +1,24 @@
+<h1>Dashboard</h1>
+<p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<section class="stats" *ngIf="stats">
+  <article><span>Tổng báo cáo</span><strong>{{ stats.totalReports }}</strong></article>
+  <article><span>Chờ trưởng phòng</span><strong>{{ stats.pendingManager }}</strong></article>
+  <article><span>Chờ giám đốc</span><strong>{{ stats.pendingDirector }}</strong></article>
+  <article><span>Trả về</span><strong>{{ stats.returnedReports }}</strong></article>
+  <article><span>Đã duyệt</span><strong>{{ stats.approvedReports }}</strong></article>
+</section>
+
+<section class="card">
+  <h2>Báo cáo gần đây</h2>
+  <ul>
+    <li *ngFor="let item of reports">{{ item.title }} - {{ item.status }} - {{ item.createdAt | date:'dd/MM/yyyy HH:mm' }}</li>
+  </ul>
+</section>
+
+<section class="card">
+  <h2>Nhiệm vụ gần đây</h2>
+  <ul>
+    <li *ngFor="let item of tasks">{{ item.title }} - {{ item.status }} - {{ item.assignedToUserName }}</li>
+  </ul>
+</section>

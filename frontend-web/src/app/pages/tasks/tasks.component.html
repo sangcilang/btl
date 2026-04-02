@@ -1,0 +1,46 @@
+<h1>Nhiệm vụ</h1>
+<p class="ok" *ngIf="message">{{ message }}</p>
+<p class="err" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<section class="card" *ngIf="canAssignTask">
+  <h2>Giao nhiệm vụ</h2>
+  <form [formGroup]="form" (ngSubmit)="createTask()">
+    <div class="grid">
+      <select formControlName="assignedToUserId">
+        <option [ngValue]="0">Chọn nhân viên</option>
+        <option *ngFor="let item of assignees" [ngValue]="item.id">{{ item.userName }} (#{{ item.id }})</option>
+      </select>
+      <input type="text" formControlName="title" placeholder="Tiêu đề nhiệm vụ" />
+      <textarea rows="3" formControlName="description" placeholder="Mô tả"></textarea>
+      <input type="date" formControlName="dueDate" />
+    </div>
+    <button type="submit" [disabled]="form.invalid">Tạo nhiệm vụ</button>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Danh sách nhiệm vụ</h2>
+  <div class="list">
+    <article *ngFor="let task of tasks">
+      <div>
+        <h3>{{ task.title }}</h3>
+        <p>{{ task.description }}</p>
+        <small>{{ task.status }} | To: {{ task.assignedToUserName }} | By: {{ task.assignedByUserName }}</small>
+      </div>
+      <div class="actions" *ngIf="isStaff && task.assignedToUserId === authService.currentUser?.id">
+        <button type="button" class="secondary" (click)="updateStatus(task, 'Todo')">Todo</button>
+        <button type="button" class="secondary" (click)="updateStatus(task, 'InProgress')">InProgress</button>
+        <button type="button" (click)="updateStatus(task, 'Done')">Done</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Lịch sử nhiệm vụ</h2>
+  <ul>
+    <li *ngFor="let row of history">
+      {{ row.changedAt | date:'dd/MM/yyyy HH:mm' }} - {{ row.taskTitle }} - {{ row.action }} - {{ row.status }} - {{ row.note }}
+    </li>
+  </ul>
+</section>

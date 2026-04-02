@@ -1,0 +1,50 @@
+﻿<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook
+  xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Styles>
+    <Style ss:ID="Default" ss:Name="Normal">
+      <Alignment ss:Vertical="Center"/>
+      <Borders/>
+      <Font ss:FontName="Calibri" ss:Size="11"/>
+      <Interior/>
+      <NumberFormat/>
+      <Protection/>
+    </Style>
+    <Style ss:ID="Title">
+      <Font ss:FontName="Calibri" ss:Size="14" ss:Bold="1"/>
+    </Style>
+    <Style ss:ID="Meta">
+      <Font ss:FontName="Calibri" ss:Size="11"/>
+    </Style>
+    <Style ss:ID="Header">
+      <Font ss:FontName="Calibri" ss:Size="11" ss:Bold="1"/>
+      <Interior ss:Color="#D9EAF7" ss:Pattern="Solid"/>
+      <Borders>
+        <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+      </Borders>
+    </Style>
+    <Style ss:ID="Body">
+      <Borders>
+        <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+      </Borders>
+    </Style>
+  </Styles>
+  <Worksheet ss:Name="Doanh thu dien">
+    <Table>
+      <Row><Cell ss:StyleID="Title"><Data ss:Type="String">báo cáo điện tháng 4</Data></Cell></Row><Row><Cell ss:StyleID="Meta"><Data ss:Type="String">Kỳ doanh thu: 4/2026</Data></Cell></Row><Row/>
+      <Row><Cell ss:StyleID="Header"><Data ss:Type="String">STT</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Mã KH</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Tên khách hàng</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Loại KH</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Chỉ số đầu</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Chỉ số cuối</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Sản lượng (kWh)</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Đơn giá (VND/kWh)</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Thành tiền (VND)</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Thuế VAT</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Tổng tiền</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Trạng thái</Data></Cell></Row>
+      <Row><Cell ss:StyleID="Body"><Data ss:Type="String">1</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">1</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">sa</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell></Row>
+    </Table>
+  </Worksheet>
+</Workbook>

@@ -1,0 +1,47 @@
+<div class="report-template-preview">
+  <div class="report-template-preview-header">
+    <div>
+      <p class="subtext" *ngIf="payload.reportPeriod">Kỳ chấm công: {{ payload.reportPeriod }}</p>
+      <p class="subtext" *ngIf="payload.description">{{ payload.description }}</p>
+    </div>
+
+    <button *ngIf="showExportButton" type="button" class="secondary" (click)="exportExcel()">Xuất Excel</button>
+  </div>
+
+  <p class="subtext" *ngIf="payload.rows.length === 0">{{ emptyMessage }}</p>
+
+  <div class="report-template-table-wrapper" *ngIf="payload.rows.length > 0">
+    <table class="report-template-table">
+      <thead>
+        <tr>
+          <th>Mã NV</th>
+          <th>Tên tài khoản</th>
+          <th>Ngày</th>
+          <th>Giờ vào</th>
+          <th>Giờ ra</th>
+          <th>Công</th>
+          <th>OT</th>
+          <th>Đi muộn</th>
+          <th>Trạng thái</th>
+          <th>Duyệt</th>
+          <th>Người duyệt</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of payload.rows">
+          <td>{{ row.employeeCode || '-' }}</td>
+          <td>{{ row.accountName || '-' }}</td>
+          <td>{{ row.workDate || '-' }}</td>
+          <td>{{ row.checkInTime || '-' }}</td>
+          <td>{{ row.checkOutTime || '-' }}</td>
+          <td>{{ row.workUnits || '-' }}</td>
+          <td>{{ row.overtimeHours || '-' }}</td>
+          <td>{{ row.lateDuration || '-' }}</td>
+          <td>{{ row.attendanceStatus || '-' }}</td>
+          <td>{{ row.approvalStatus || '-' }}</td>
+          <td>{{ row.approvedBy || '-' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

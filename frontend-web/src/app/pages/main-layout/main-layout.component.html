@@ -1,0 +1,24 @@
+<div class="layout">
+  <aside class="sidebar">
+    <h2>Report Approval</h2>
+    <p class="user">{{ authService.currentUser?.userName }} - {{ authService.currentUser?.role }}</p>
+
+    <nav>
+      <a
+        *ngFor="let item of menuItems"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [class.hidden]="!canShow(item)"
+      >
+        {{ item.label }}
+      </a>
+    </nav>
+
+    <button type="button" (click)="logout()">Đăng xuất</button>
+  </aside>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

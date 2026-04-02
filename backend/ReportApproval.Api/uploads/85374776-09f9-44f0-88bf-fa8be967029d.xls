@@ -1,0 +1,50 @@
+﻿<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook
+  xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Styles>
+    <Style ss:ID="Default" ss:Name="Normal">
+      <Alignment ss:Vertical="Center"/>
+      <Borders/>
+      <Font ss:FontName="Calibri" ss:Size="11"/>
+      <Interior/>
+      <NumberFormat/>
+      <Protection/>
+    </Style>
+    <Style ss:ID="Title">
+      <Font ss:FontName="Calibri" ss:Size="14" ss:Bold="1"/>
+    </Style>
+    <Style ss:ID="Meta">
+      <Font ss:FontName="Calibri" ss:Size="11"/>
+    </Style>
+    <Style ss:ID="Header">
+      <Font ss:FontName="Calibri" ss:Size="11" ss:Bold="1"/>
+      <Interior ss:Color="#D9EAF7" ss:Pattern="Solid"/>
+      <Borders>
+        <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+      </Borders>
+    </Style>
+    <Style ss:ID="Body">
+      <Borders>
+        <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+        <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+      </Borders>
+    </Style>
+  </Styles>
+  <Worksheet ss:Name="Cham cong">
+    <Table>
+      <Row><Cell ss:StyleID="Title"><Data ss:Type="String">test báo cáo 1</Data></Cell></Row><Row/>
+      <Row><Cell ss:StyleID="Header"><Data ss:Type="String">Mã NV</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Tên tài khoản</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Ngày</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Giờ vào</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Giờ ra</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Công</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">OT</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Đi muộn</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Trạng thái</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Duyệt</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Người duyệt</Data></Cell></Row>
+      <Row><Cell ss:StyleID="Body"><Data ss:Type="String">12</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">1</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell><Cell ss:StyleID="Body"><Data ss:Type="String">-</Data></Cell></Row>
+    </Table>
+  </Worksheet>
+</Workbook>

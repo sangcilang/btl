@@ -1,0 +1,90 @@
+﻿<mxfile host="app.diagrams.net" modified="2026-03-23T06:39:17Z" agent="Codex" version="24.7.17">
+  <diagram id="8e0c13efe42d" name="Sơ đồ ERD">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="2" value="Sơ đồ ERD"
+                style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=20;fontStyle=1;"
+                vertex="1" parent="1">
+          <mxGeometry x="520" y="20" width="560" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Tables -->
+        <mxCell id="3"
+                value="Users&lt;br/&gt;&lt;br/&gt;PK Id&lt;br/&gt;UserName&lt;br/&gt;Password&lt;br/&gt;Role"
+                style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=left;spacingLeft=8;fontSize=12;"
+                vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="220" height="180" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="4"
+                value="Reports&lt;br/&gt;&lt;br/&gt;PK Id&lt;br/&gt;Title&lt;br/&gt;Content&lt;br/&gt;Status&lt;br/&gt;ReturnedReason&lt;br/&gt;FileOriginalName&lt;br/&gt;FileStoredName&lt;br/&gt;FileContentType&lt;br/&gt;CurrentLevel&lt;br/&gt;IsApproved&lt;br/&gt;CreatedAt&lt;br/&gt;FK CreatedByUserId"
+                style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=left;spacingLeft=8;fontSize=12;"
+                vertex="1" parent="1">
+          <mxGeometry x="310" y="70" width="280" height="300" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="5"
+                value="ReportApprovals&lt;br/&gt;&lt;br/&gt;PK Id&lt;br/&gt;FK ReportId&lt;br/&gt;FK ApproverUserId&lt;br/&gt;Level&lt;br/&gt;Action&lt;br/&gt;Comment&lt;br/&gt;ApprovedAt"
+                style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=left;spacingLeft=8;fontSize=12;"
+                vertex="1" parent="1">
+          <mxGeometry x="670" y="90" width="260" height="220" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="6"
+                value="Tasks&lt;br/&gt;&lt;br/&gt;PK Id&lt;br/&gt;Title&lt;br/&gt;Description&lt;br/&gt;FK AssignedToUserId&lt;br/&gt;FK AssignedByUserId&lt;br/&gt;DueDate&lt;br/&gt;Status&lt;br/&gt;CompletedAt&lt;br/&gt;FK CompletedByUserId&lt;br/&gt;CreatedAt"
+                style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=left;spacingLeft=8;fontSize=12;"
+                vertex="1" parent="1">
+          <mxGeometry x="300" y="430" width="290" height="260" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="7"
+                value="TaskHistories&lt;br/&gt;&lt;br/&gt;PK Id&lt;br/&gt;FK TaskId&lt;br/&gt;Action&lt;br/&gt;Status&lt;br/&gt;Note&lt;br/&gt;FK ChangedByUserId&lt;br/&gt;ChangedAt"
+                style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=left;spacingLeft=8;fontSize=12;"
+                vertex="1" parent="1">
+          <mxGeometry x="690" y="460" width="250" height="210" as="geometry"/>
+        </mxCell>
+
+        <!-- Relationships -->
+        <mxCell id="8" value="CreatedByUserId"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;"
+                edge="1" parent="1" source="3" target="4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="9" value="ReportId"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;"
+                edge="1" parent="1" source="4" target="5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="10" value="ApproverUserId"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;"
+                edge="1" parent="1" source="3" target="5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="11" value="AssignedBy/To/CompletedBy"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;"
+                edge="1" parent="1" source="3" target="6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="12" value="TaskId"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;"
+                edge="1" parent="1" source="6" target="7">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="13" value="ChangedByUserId"
+                style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=1.5;"
+                edge="1" parent="1" source="3" target="7">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,27 @@
+<div class="login-page">
+  <div class="login-card">
+    <h1>Report Approval</h1>
+    <p>Đăng nhập để quản lý báo cáo.</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <label for="username">User name</label>
+      <input id="username" type="text" formControlName="userName" placeholder="nhanvien01" />
+
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" placeholder="123456" />
+
+      <button type="submit" [disabled]="isSubmitting">
+        {{ isSubmitting ? 'Đang xử lý...' : 'Đăng nhập' }}
+      </button>
+    </form>
+
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    <div class="demo-users">
+      <div>Tài khoản mẫu:</div>
+      <div>nhanvien01 / 123456 (Staff)</div>
+      <div>truongphong01 / 123456 (Manager)</div>
+      <div>giamdoc01 / 123456 (Director)</div>
+      <div>admin01 / 123456 (Admin)</div>
+    </div>
+  </div>
+</div>
